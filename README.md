@@ -5,7 +5,7 @@ Add new marker type (ForbiddenArea) to leaflet.Draw Toolbar.
 
 Prohibit the placement of its markers if they are too close to another layer.
 
-Check out the [demo](http://makinacorpus.github.com/Leaflet.Snap/) !
+Check out the [demo](https://makinacorpus.github.io/Leaflet.ForbiddenArea/) !
 
 
 It depends on [Leaflet.GeometryUtil](https://github.com/makinacorpus/Leaflet.GeometryUtil).
