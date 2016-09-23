@@ -1,0 +1,28 @@
+{
+    "name": "leaflet-forbiddenarea",
+    "version": "0.0.1",
+    "description": "forbidden area",
+    "keywords": [
+        "Leaflet",
+        "GIS"
+    ],
+    "main": "leaflet.forbiddenarea.js",
+    "bugs": {
+        "url": ""
+    },
+    "scripts": {
+    },
+    "repository": {
+        "type": "git"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "leaflet": "^0.7.7",
+        "leaflet-geometryutil": "*"
+    },
+    "optionalDependencies": {
+        "leaflet-draw": "^0.3.2"
+    },
+    "devDependencies": {
+    }
+}

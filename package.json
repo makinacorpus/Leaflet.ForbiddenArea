@@ -1,0 +1,35 @@
+{
+    "name": "leaflet-forbiddenarea",
+    "version": "0.0.1",
+    "description": "Prohibit the placement of markers if they are too close to another layer",
+    "keywords": [
+        "Leaflet",
+        "GIS"
+    ],
+    "main": "leaflet.forbiddenarea.js",
+    "bugs": {
+        "url": "https://github.com/makinacorpus/Leaflet.ForbiddenArea/issues"
+    },
+    "scripts": {
+         "test": "mocha-phantomjs ./test/index.html --reporter list || true"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/makinacorpus/Leaflet.ForbiddenArea"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "leaflet": "^0.7.7",
+        "leaflet-geometryutil": "*"
+    },
+    "optionalDependencies": {
+        "leaflet-draw": "^0.3.2"
+    },
+    "devDependencies": {
+        "chai": "^3.5.0",
+        "mocha": "^3.0.2",
+        "happen": "^0.3.1",
+        "mocha-phantomjs": "^4.1.0",
+        "sinon": "^1.17.5"
+    }
+}
