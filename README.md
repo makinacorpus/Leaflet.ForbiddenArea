@@ -79,7 +79,12 @@ Usage
 
 * prohibit the placement of a marker if it is too close to another.ex
 
+TODO
+----
 
+* Change marker color when it's in forbidden area (Creation and Edition)
+* Keep default icon marker for forbidden marker type, but can be cool if we can choose an other if we want
+* Show forbidden zone around layer
 Authors
 -------
 
