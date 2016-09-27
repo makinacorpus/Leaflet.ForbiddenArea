@@ -16,6 +16,7 @@ Install
 -----
 In order to use this plugin in your app you can either:
 * install it via your favorite package manager:
+    * `npm i leaflet-forbiddenarea`
     * `bower install git@github.com:makinacorpus/Leaflet.ForbiddenArea.git`
 * download the repository and import the `leaflet.forbiddenarea.js` file in your app.
 
