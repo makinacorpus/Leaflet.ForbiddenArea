@@ -8,7 +8,8 @@
         forbiddenArea: false,
         options: {
             distanceForbiddenArea: 60,
-            msgForbidden: 'Other marker are too close !'
+            msgForbidden: 'Other marker are too close !',
+            forbiddenIcon: undefined
         },
 
         initialize: function(map, options) {
@@ -72,11 +73,20 @@
 
             this.forbiddenArea = closest.layer && closest.latlng;
 
-            this.forbiddenArea ? this._tooltip.updateContent({ text: this.options.msgForbidden }) : this._tooltip.updateContent({ text: 'Click map to place marker' });
+            if ( this.forbiddenArea) {
+              this._tooltip.updateContent({ text: this.options.msgForbidden })
+              if (marker._icon) {
+                marker.setOpacity(1);
+                marker.setIcon(this.options.forbiddenIcon);
+              }
+            } else {
+                marker.setOpacity(0);
+                this._tooltip.updateContent({ text: 'Click map to place marker' });
+            }
         },
 
         _fireCreatedEvent: function() {
-            var marker = new L.Marker.Touch(this._marker.getLatLng(), { icon: this.options.icon, forbiddenArea: true, guides: this.options.guideLayers, distanceForbiddenArea: this.options.distanceForbiddenArea });
+            var marker = new L.Marker.Touch(this._marker.getLatLng(), { icon: this.options.icon, forbiddenArea: true, guides: this.options.guideLayers, distanceForbiddenArea: this.options.distanceForbiddenArea, forbiddenIcon: this.options.forbiddenIcon });
             L.Draw.Feature.prototype._fireCreatedEvent.call(this, marker);
         }
     });
@@ -129,8 +139,11 @@
             var marker = this._marker;
 
             marker.dragging.enable();
-            marker.on('dragend', this._onDragEnd, marker);
-            marker.on('dragstart', this._onDragStart, marker);
+            marker.on('dragend', this._onDragEnd);
+            marker.on('dragstart', this._onDragStart);
+            if (marker.options.forbiddenArea) {
+              marker.on('move', L.bind(this._onDragMove, null, marker, marker.options.forbiddenIcon.options));
+            }
             this._toggleMarkerHighlight();
         },
 
@@ -139,11 +152,39 @@
 
             marker.dragging.disable();
             marker.off('dragend', this._onDragEnd, marker);
+            marker.off('dragstart', this._onDragStart, marker);
+            if (marker.options.forbiddenArea) {
+               marker.off('move');
+            }
             this._toggleMarkerHighlight();
         },
         _onDragStart: function(e) {
             // save initial position
             this.initialLatLng = e.target._latlng;
+        },
+        _onDragMove: function(e, defaultIcon) {
+            //change icon if marker is in forbidden area else default icon
+            var marker = e,
+                latlng = marker.getLatLng();
+            var guides = [];
+            marker.options.guides.forEach(function(position) {
+                position._leaflet_id !== marker._leaflet_id ? guides.push(position) : null;
+            })
+
+            var closest = geomFunction.findClosestLayer(marker._map,
+                guides,
+                latlng,
+                marker.options.distanceForbiddenArea,
+                false);
+
+            closest = closest || { layer: null, latlng: null };
+
+            this.forbiddenArea = closest.layer && closest.latlng;
+            if (this.forbiddenArea) {
+               L.DomUtil.addClass(marker._icon, defaultIcon.className);
+            } else {
+               L.DomUtil.removeClass(marker._icon, defaultIcon.className);
+            }
         },
         _onDragEnd: function(e) {
             var marker = e.target ? e.target : e,

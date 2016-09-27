@@ -50,12 +50,8 @@
             height: 30px;
         }
         
-        .leaflet-editing-icon.marker-snapped {
-            background-color: yellow;
-        }
-        
-        .leaflet-marker-icon.marker-snapped {
-            content: url('./marker-snap.png');
+        .marker-forbidden {
+            content: url('./marker-forbidden.png');
         }
     </style>
 </head>
@@ -80,6 +76,13 @@
         var groupMarkers = [marker];
         editableMarkers.addLayer(marker);
         map.addLayer(editableMarkers);
+        
+        var forbiddenIcon = L.icon({
+                      iconUrl: './marker-forbidden.png',
+                      iconSize: [28, 42],
+                      iconAnchor: [14, 42],
+                      className: 'marker-forbidden',
+                    });
 
         var options = {
             position: 'topright',
@@ -92,7 +95,9 @@
                 forbiddenAreaMarker: {
                     guideLayers: groupMarkers,
                     distanceForbiddenArea: 300,
-                    msgForbidden: 'Other marker are too close !'
+                    msgForbidden: 'Other marker are too close !',
+                    forbiddenIcon: forbiddenIcon,
+                    icon : new L.Icon.Default()
                 },
             },
             edit: {
