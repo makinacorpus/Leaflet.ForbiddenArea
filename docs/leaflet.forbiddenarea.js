@@ -67,7 +67,7 @@
                 this.options.guideLayers,
                 latlng,
                 this.options.distanceForbiddenArea,
-                false);
+                false, true);
 
             closest = closest || { layer: null, latlng: null };
 
@@ -167,7 +167,7 @@
             var marker = e,
                 latlng = marker.getLatLng();
             var guides = [];
-            marker.options.guides.forEach(function(position) {
+            marker.options.guides.getLayers().forEach(function(position) {
                 position._leaflet_id !== marker._leaflet_id ? guides.push(position) : null;
             })
 
@@ -175,7 +175,7 @@
                 guides,
                 latlng,
                 marker.options.distanceForbiddenArea,
-                false);
+                false, false);
 
             closest = closest || { layer: null, latlng: null };
 
@@ -189,12 +189,11 @@
         _onDragEnd: function(e) {
             var marker = e.target ? e.target : e,
                 latlng = marker.getLatLng();
-
             // set latlng initial position if forbidden area
             if (marker.options.forbiddenArea) {
 
                 var guides = [];
-                marker.options.guides.forEach(function(position) {
+                marker.options.guides.getLayers().forEach(function(position) {
                     position._leaflet_id !== marker._leaflet_id ? guides.push(position) : null;
                 })
 
@@ -202,7 +201,8 @@
                     guides,
                     latlng,
                     marker.options.distanceForbiddenArea,
-                    false);
+                    false, false);
+
                 closest = closest || { layer: null, latlng: null };
                 this.forbiddenArea = closest.layer && closest.latlng;
                 if (this.forbiddenArea) {
@@ -261,8 +261,8 @@
     });
 
     geomFunction = {
-        findClosestLayer: function(map, layers, latlng, tolerance, withVertices) {
-            var closestLayer = L.GeometryUtil.closestLayer(map, layers, latlng);
+        findClosestLayer: function(map, layers, latlng, tolerance, withVertices, group) {
+            var closestLayer = group ? L.GeometryUtil.closestLayer(map, layers.getLayers(), latlng) :  L.GeometryUtil.closestLayer(map, layers, latlng);
             return closestLayer && L.GeometryUtil.length([closestLayer.latlng, latlng]) < tolerance ? closestLayer : null;
         }
     }

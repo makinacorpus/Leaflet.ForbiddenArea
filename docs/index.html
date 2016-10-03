@@ -73,7 +73,6 @@
             .addLayer(osm);
 
         var marker = L.marker([48.488, 1.395]).addTo(map);
-        var groupMarkers = [marker];
         editableMarkers.addLayer(marker);
         map.addLayer(editableMarkers);
         
@@ -93,7 +92,7 @@
                 rectangle: false,
                 marker: true,
                 forbiddenAreaMarker: {
-                    guideLayers: groupMarkers,
+                    guideLayers: editableMarkers,
                     distanceForbiddenArea: 300,
                     msgForbidden: 'Other marker are too close !',
                     forbiddenIcon: forbiddenIcon,
@@ -112,7 +111,6 @@
         map.on('draw:created', function(e) {
             var layer = e.layer;
             map.addLayer(layer);
-            groupMarkers.push(layer);
             editableMarkers.addLayer(layer);
         });
     </script>
