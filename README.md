@@ -76,7 +76,7 @@ Usage
 
 ```
 
-### 0.0.2
+### 0.0.3
 
 * prohibit the placement of a marker if it is too close to another.ex
 
