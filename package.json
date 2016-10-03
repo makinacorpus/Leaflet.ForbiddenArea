@@ -1,6 +1,6 @@
 {
     "name": "leaflet-forbiddenarea",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Prohibit the placement of markers if they are too close to another layer",
     "keywords": [
         "Leaflet",
