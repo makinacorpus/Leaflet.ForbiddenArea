@@ -29,7 +29,7 @@ Usage
 
 ```javascript
 
- var editableMarkers = new L.FeatureGroup();
+        var editableMarkers = new L.FeatureGroup();
         var osm = L.tileLayer('//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: 'Map data &copy; 2013 OpenStreetMap contributors',
         });
