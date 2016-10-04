@@ -29,21 +29,23 @@ Usage
 
 ```javascript
 
-        var editableMarkers = new L.FeatureGroup();
-
-        var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+ var editableMarkers = new L.FeatureGroup();
+        var osm = L.tileLayer('//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: 'Map data &copy; 2013 OpenStreetMap contributors',
         });
-
         var map = L.map('map')
             .setView([48.49, 1.4], 16)
             .addLayer(osm);
-
         var marker = L.marker([48.488, 1.395]).addTo(map);
-        var groupMarkers = [marker];
         editableMarkers.addLayer(marker);
         map.addLayer(editableMarkers);
-
+        
+        var forbiddenIcon = L.icon({
+                      iconUrl: './marker-forbidden.png',
+                      iconSize: [28, 42],
+                      iconAnchor: [14, 42],
+                      className: 'marker-forbidden',
+                    });
         var options = {
             position: 'topright',
             draw: {
@@ -53,9 +55,11 @@ Usage
                 rectangle: false,
                 marker: true,
                 forbiddenAreaMarker: {
-                    guideLayers: groupMarkers,
+                    guideLayers: editableMarkers,
                     distanceForbiddenArea: 300,
-                    msgForbidden: 'Other marker are too close !'
+                    msgForbidden: 'Other marker are too close !',
+                    forbiddenIcon: forbiddenIcon,
+                    icon : new L.Icon.Default()
                 },
             },
             edit: {
@@ -63,14 +67,11 @@ Usage
                 remove: false
             }
         };
-
         var drawControl = new L.Control.Draw(options);
         map.addControl(drawControl);
-
         map.on('draw:created', function(e) {
             var layer = e.layer;
             map.addLayer(layer);
-            groupMarkers.push(layer);
             editableMarkers.addLayer(layer);
         });
 
