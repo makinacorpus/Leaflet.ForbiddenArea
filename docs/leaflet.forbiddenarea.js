@@ -9,7 +9,8 @@
         options: {
             distanceForbiddenArea: 60,
             msgForbidden: 'Other marker are too close !',
-            forbiddenIcon: undefined
+            forbiddenIcon: undefined,
+            title: 'Draw a marker'
         },
 
         initialize: function(map, options) {
@@ -122,7 +123,7 @@
                 {
                     enabled: this.options.forbiddenAreaMarker,
                     handler: new L.Draw.forbiddenAreaMarker(map, this.options.forbiddenAreaMarker),
-                    title: 'Forbidden Area Marker'
+                    title:  this.options.forbiddenAreaMarker.title
                 }
             ];
         }

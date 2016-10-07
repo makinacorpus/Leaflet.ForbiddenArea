@@ -9,7 +9,8 @@
         options: {
             distanceForbiddenArea: 60,
             msgForbidden: 'Other marker are too close !',
-            forbiddenIcon: undefined
+            forbiddenIcon: undefined,
+            title: 'Draw a forbidden marker'
         },
 
         initialize: function(map, options) {
