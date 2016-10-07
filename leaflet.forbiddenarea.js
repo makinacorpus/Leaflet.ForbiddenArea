@@ -123,7 +123,7 @@
                 {
                     enabled: this.options.forbiddenAreaMarker,
                     handler: new L.Draw.forbiddenAreaMarker(map, this.options.forbiddenAreaMarker),
-                    title: 'Forbidden Area Marker'
+                    title: this.options.forbiddenAreaMarker.title
                 }
             ];
         }
