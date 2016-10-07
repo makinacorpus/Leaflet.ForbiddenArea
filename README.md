@@ -76,6 +76,9 @@ Usage
         });
 
 ```
+### 0.0.4
+
+* can change marker title
 
 ### 0.0.3
 
